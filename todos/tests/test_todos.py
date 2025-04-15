@@ -36,7 +36,7 @@ def test_no_empty_text_when_todo_list_not_empty(live_server, page: Page):
     page.get_by_role("textbox", name="Description*").click()
     page.get_by_role("textbox", name="Description*").fill("testing")
     page.get_by_role("button", name="Add").click()
-    expect(page.get_by_text("Nothing to see here...")).not_to_be_visible()
+    expect(page.locator("#todo_items_empty")).to_be_empty()
 
 
 def test_form_clears_after_submission(live_server, page: Page):

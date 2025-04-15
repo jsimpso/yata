@@ -15,4 +15,8 @@ def index(request):
 def action_add_new_todo(request):
     form = forms.CreateTodoForm(request.POST)
     instance = form.save()
-    return render(request, "todos/partial_todo_item.html", {"item": instance})
+    return render(
+        request,
+        "todos/action_add_new_todo.html",
+        {"item": instance},
+    )
