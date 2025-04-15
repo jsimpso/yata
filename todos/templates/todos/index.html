@@ -3,10 +3,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Things to do</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   </head>
-
+  {% load django_browser_reload %}
   <body>
-    <h1>Things to do</h1>
-    Nothing to see here
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-4 pt-4">
+      <h1 class="text-3xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Things to do</h1>
+
+      <div class="text-center text-2xl font-bold opacity-70 pt-6">Nothing to see here...</div>
+    </div>
+    {% django_browser_reload_script %}
   </body>
 </html>
