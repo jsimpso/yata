@@ -19,7 +19,7 @@
       <div>
         <h2 class="text-xl font-bold leading-7 text-gray-800 sm:truncate sm:text-2xl sm:tracking-tight text-center">Add Item</h2>
         {% load tailwind_filters %}
-        <form hx-post="{% url 'action_add_new_todo' %}" hx-target="#todo_items" hx-swap="beforeend">
+        <form hx-post="{% url 'action_add_new_todo' %}" hx-target="#todo_items" hx-swap="beforeend" hx-on::after-request="if(event.detail.successful) this.reset()">
           {% csrf_token %}
           {{ form|crispy }}
           <input type="submit" value="Add" class="rounded-sm bg-green-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-green-600" />
