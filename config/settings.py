@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_browser_reload",
+    "crispy_forms",
+    "crispy_tailwind",
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,9 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 WSGI_APPLICATION = "config.wsgi.application"
 
