@@ -1,4 +1,6 @@
 from playwright.sync_api import Page, expect
+import pytest
+from todos.models import TodoItem
 
 
 def test_display_empty_list_on_first_load(live_index_url, page: Page):
@@ -73,3 +75,26 @@ def test_item_has_strikethrough_added_when_completed(create_todo, live_index_url
     page.get_by_test_id(checkbox_id).click()
     expect(page.get_by_test_id(checkbox_id)).to_be_checked()
     expect(page.locator(f"#checkbox-label-{item.id}")).to_have_class("font-semibold text-gray-900 line-through")
+
+
+def test_delete_item(create_todo, live_index_url, page: Page):
+    item = create_todo(title="Test item", completed=True)
+    page.goto(live_index_url)
+
+    delete_id = f"delete_item_{item.id}"
+    page.get_by_test_id(delete_id).click()
+
+    expect(page.locator("#todo_items_empty")).not_to_contain_text("Test item")
+
+    with pytest.raises(TodoItem.DoesNotExist):
+        TodoItem.objects.get(id=item.id)
+
+
+def test_delete_last_item_shows_nothing_to_see(create_todo, live_index_url, page: Page):
+    item = create_todo(title="Test item", completed=True)
+    page.goto(live_index_url)
+
+    delete_id = f"delete_item_{item.id}"
+    page.get_by_test_id(delete_id).click()
+
+    page.wait_for_selector("text=Nothing to see")

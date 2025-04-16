@@ -41,3 +41,15 @@ def action_toggle_todo(request, item_id):
            for="checkbox"
            class="{' '.join(classes)}">{item.title}</label>"""
     return HttpResponse(html_response)
+
+
+@require_http_methods(["DELETE"])
+def action_delete_todo(request, item_id):
+    item = models.TodoItem.objects.get(id=item_id)
+    item.delete()
+    if models.TodoItem.objects.count():
+        return HttpResponse("")
+    return render(
+        request,
+        "todos/partial_nothing_to_see.html",
+    )

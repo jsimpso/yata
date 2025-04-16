@@ -1,4 +1,5 @@
-<div class="todo_item border-solid border border-blue-400 rounded-lg shadow-md bg-white pl-4 pr-4 pt-2 pb-2 flex justify-between">
+<div class="todo_item border-solid border border-blue-400 rounded-lg shadow-md bg-white pl-4 pr-4 pt-2 pb-2 flex justify-between"
+     id="item-{{ item.id }}">
   <div>
     <input type="checkbox"
            class="h-6 w-6 rounded-sm border-blue-300 accent-blue-400 cursor-pointer inline-block align-middle"
@@ -12,7 +13,9 @@
            class="font-semibold text-gray-900{% if item.completed %} line-through{% endif %}">{{ item.title }}</label>
     <p id="checkbox-text" class="text-sm font-normal text-gray-500">{{ item.description }}</p>
   </div>
-  <button class="rounded-sm bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600 inline-block align-middle">
-    Delete
-  </button>
+  <button class="rounded-sm bg-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-600 inline-block align-middle"
+          data-testid="delete_item_{{ item.id }}"
+          hx-delete="{% url 'action_delete_todo' item.id %}"
+          hx-target="#item-{{ item.id }}"
+          hx-swap="outerHTML">Delete</button>
 </div>

@@ -18,10 +18,7 @@
           {% include "todos/partial_todo_item.html" %}
         {% endfor %}
       </div>
-      <div class="text-center text-2xl font-bold opacity-70 pt-6"
-           id="todo_items_empty">
-        {% if not todo_items %}Nothing to see here...{% endif %}
-      </div>
+      {% include "todos/partial_nothing_to_see.html" %}
     </div>
     <div class="absolute inset-x-0 bottom-2 flex justify-center">
       <div>
