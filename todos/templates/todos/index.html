@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,30 +8,36 @@
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
   </head>
   {% load django_browser_reload %}
-  <body>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-4 pt-4">
-      <h1 class="text-3xl font-extrabold leading-none text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Things to do</h1>
-
+      <h1 class="text-3xl font-extrabold leading-none text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+        Things to do
+      </h1>
       <div id="todo_items" class="space-y-2">
         {% for item in todo_items %}
-          {% include 'todos/partial_todo_item.html' %}
+          {% include "todos/partial_todo_item.html" %}
         {% endfor %}
       </div>
-
-      <div class="text-center text-2xl font-bold opacity-70 pt-6" id="todo_items_empty">
-        {% if not todo_items %}
-          Nothing to see here...
-        {% endif %}
+      <div class="text-center text-2xl font-bold opacity-70 pt-6"
+           id="todo_items_empty">
+        {% if not todo_items %}Nothing to see here...{% endif %}
       </div>
     </div>
     <div class="absolute inset-x-0 bottom-2 flex justify-center">
       <div>
-        <h2 class="text-xl font-bold leading-7 text-gray-800 sm:truncate sm:text-2xl sm:tracking-tight text-center">Add Item</h2>
+        <h2 class="text-xl font-bold leading-7 text-gray-800 sm:truncate sm:text-2xl sm:tracking-tight text-center">
+          Add Item
+        </h2>
         {% load tailwind_filters %}
-        <form class="w-full max-w-sm" hx-post="{% url 'action_add_new_todo' %}" hx-target="#todo_items" hx-swap="beforeend" hx-on::after-request="if(event.detail.successful) this.reset()">
-          {% csrf_token %}
+        <form class="w-full max-w-sm"
+              hx-post="{% url 'action_add_new_todo' %}"
+              hx-target="#todo_items"
+              hx-swap="beforeend"
+              hx-on::after-request="if(event.detail.successful) this.reset()">
           {{ form|crispy }}
-          <input type="submit" value="Add" class="rounded-sm bg-green-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-green-600" />
+          <input type="submit"
+                 value="Add"
+                 class="rounded-sm bg-green-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-green-600" />
         </form>
       </div>
     </div>

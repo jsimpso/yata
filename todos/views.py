@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views.decorators.http import require_http_methods
 from . import forms, models
 
@@ -21,3 +21,23 @@ def action_add_new_todo(request):
         "todos/action_add_new_todo.html",
         {"item": instance},
     )
+
+
+@require_http_methods(["PUT"])
+def action_toggle_todo(request, item_id):
+    item = models.TodoItem.objects.get(id=item_id)
+    item.completed = not item.completed
+    item.save()
+    classes = ["font-semibold", "text-gray-900"]
+    if item.completed:
+        # response = f"<s>{item.title}</s>"
+        classes.append("line-through")
+
+    # else:
+    #     response = item.title
+
+    html_response = f"""
+    <label id="checkbox-label-{item.id}"
+           for="checkbox"
+           class="{' '.join(classes)}">{item.title}</label>"""
+    return HttpResponse(html_response)

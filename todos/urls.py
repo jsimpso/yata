@@ -5,4 +5,9 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("action_add_new_todo", views.action_add_new_todo, name="action_add_new_todo"),
+    path(
+        "action_toggle_todo/<int:item_id>",
+        views.action_toggle_todo,
+        name="action_toggle_todo",
+    ),
 ]

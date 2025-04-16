@@ -12,8 +12,8 @@ def live_index_url(live_server):
 
 @pytest.fixture(scope="function")
 def create_todo():
-    def _create_todo(title: str = "Test Title", description: str = "Created via Model"):
-        return TodoItem.objects.create(title=title, description=description)
+    def _create_todo(title: str = "Test Title", description: str = "Created via Model", completed: bool = False):
+        return TodoItem.objects.create(title=title, description=description, completed=completed)
 
     return _create_todo
 
