@@ -28,19 +28,7 @@ def action_toggle_todo(request, item_id):
     item = models.TodoItem.objects.get(id=item_id)
     item.completed = not item.completed
     item.save()
-    classes = ["font-semibold", "text-gray-900"]
-    if item.completed:
-        # response = f"<s>{item.title}</s>"
-        classes.append("line-through")
-
-    # else:
-    #     response = item.title
-
-    html_response = f"""
-    <label id="checkbox-label-{item.id}"
-           for="checkbox"
-           class="{' '.join(classes)}">{item.title}</label>"""
-    return HttpResponse(html_response)
+    return render(request, "todos/partial_todo_item.html", {"item": item})
 
 
 @require_http_methods(["DELETE"])
