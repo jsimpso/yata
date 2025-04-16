@@ -9,7 +9,10 @@ dependencies = [
     "django>=5.2",
     "django-browser-reload>=1.18.0",
     "django-crispy-forms>=2.4",
+    "djlint>=1.36.4",
 ]
 
 [dependency-groups]
 dev = ["pytest-django>=4.11.1", "pytest-env>=1.1.5", "pytest-playwright>=0.7.0"]
+[tool.djlint]
+ignore = "H030,H031"
